@@ -1,0 +1,7 @@
+api_url: "http://localhost:8080"
+cron_spec: "@every 1m"
+log:
+  level: "debug"
+auth:
+  name_env: "PINGER_NAME"
+  password_env: "PINGER_PASSWORD"
