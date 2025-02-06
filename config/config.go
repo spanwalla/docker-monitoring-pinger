@@ -69,6 +69,7 @@ func LoadConfig(configPath string) (*Config, error) {
 		}
 	}
 
+	viper.SetEnvPrefix("pinger")
 	viper.AutomaticEnv()
 
 	if err := viper.ReadInConfig(); err != nil {
