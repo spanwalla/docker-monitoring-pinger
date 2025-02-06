@@ -31,7 +31,7 @@ func (d *DockerCollector) Collect() ([]entity.Report, error) {
 	var err error
 
 	var containers []types.Container
-	containers, err = d.client.ContainerList(ctx, container.ListOptions{})
+	containers, err = d.client.ContainerList(ctx, container.ListOptions{All: true})
 	if err != nil {
 		return nil, fmt.Errorf("getContainerList - ContainerList: %v", err)
 	}
@@ -72,6 +72,8 @@ func (d *DockerCollector) Collect() ([]entity.Report, error) {
 			ContainerId: cnt.ID,
 			Ip:          ipAddress,
 			Latency:     pingLatency,
+			Status:      cnt.Status,
+			State:       cnt.State,
 			Timestamp:   timestamp,
 		})
 	}
