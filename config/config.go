@@ -28,8 +28,8 @@ func setDefaults() {
 	viper.SetDefault("api_url", "http://localhost:8080")
 	viper.SetDefault("cron_spec", "@every 5m")
 	viper.SetDefault("auth", AuthConfig{
-		NameEnv:     "PINGER_NAME",
-		PasswordEnv: "PINGER_PASSWORD",
+		NameEnv:     "NAME",
+		PasswordEnv: "PASSWORD",
 	})
 	viper.SetDefault("log", LogConfig{Level: "info"})
 }
@@ -46,6 +46,7 @@ func (c *AuthConfig) GetCredentials() (string, string, error) {
 }
 
 func LoadConfig(configPath string) (*Config, error) {
+	viper.SetEnvPrefix("pinger")
 	setDefaults()
 
 	if configPath != "" {
@@ -69,7 +70,6 @@ func LoadConfig(configPath string) (*Config, error) {
 		}
 	}
 
-	viper.SetEnvPrefix("pinger")
 	viper.AutomaticEnv()
 
 	if err := viper.ReadInConfig(); err != nil {
